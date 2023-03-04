@@ -118,8 +118,10 @@ def like_comment_add_video_ids(youtube_api,list_ids, comment_template, playlistI
       time.sleep(5)
       report_links.append(video_url)
       index_start +=1
-    except Exception as e:
-      print(e)
+    except HttpError as e:
+      print ('An HTTP error %d occurred:\n%s' % (e.resp.status, e.content))
+      if "The request cannot be completed because you have exceeded your" in e.reason:
+        exit()
       continue
     
   return report_links
@@ -129,7 +131,7 @@ def like_comment_add_video_ids(youtube_api,list_ids, comment_template, playlistI
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--q', help='Search term', default='digimon amv|digimon asmv')
-  parser.add_argument('--max-results', help='Max results', default=50)
+  parser.add_argument('--max-results', help='Max results', default=20)
   args = parser.parse_args()
   
   token_secrets = json.load(open("token.json"))
@@ -163,4 +165,4 @@ if __name__ == '__main__':
         f.write(l)
         
   except HttpError as e:
-    print ('An HTTP error %d occurred:\n%s' % (e.resp.status, e.content))
+    print ('An HTTP error %d occurred:\n%s' % (e.resp.status, e.reason))    
