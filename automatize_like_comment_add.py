@@ -131,7 +131,7 @@ def like_comment_add_video_ids(youtube_api,list_ids, comment_template, playlistI
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('--q', help='Search term', default='digimon amv|digimon asmv')
-  parser.add_argument('--max-results', help='Max results', default=20)
+  parser.add_argument('--max-results', help='Max results', default=10)
   args = parser.parse_args()
   
   token_secrets = json.load(open("token.json"))
