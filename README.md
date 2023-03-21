@@ -22,3 +22,8 @@ For that application, create also a "comment_template.txt" file and a "playlistI
 
 
 ## Run automatization script with authentication
+
+
+## TODO
+
+Check if the comment was effectively inserted. Otherwise ban the channel id and store it in some local dictionary. 

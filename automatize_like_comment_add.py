@@ -86,7 +86,8 @@ def youtube_search(youtube_api,list_id_in_playlist,options, order="date", limit_
   print(len(new_ids))
 
   # FILTER NEW IDS 
-  new_ids = list(set(new_ids).difference(set(list_id_in_playlist)))
+  # filter here to avoid re-sorting
+  new_ids = [x for x in new_ids if x in list_id_in_playlist]
   # print(len(new_ids))
   print(new_ids)
   return new_ids# sorted(new_ids)
@@ -94,6 +95,11 @@ def youtube_search(youtube_api,list_id_in_playlist,options, order="date", limit_
 def like_comment_add_video_ids(youtube_api,list_ids, comment_templates, playlistId_to_add_template, index_start):
   report_links = []
   for idx,ids in tqdm.tqdm(enumerate(list_ids), total=len(list_ids), desc="Automatizing actions"):
+
+    if idx >= 10: 
+        break # custom limit
+    
+
     time.sleep(10)
     video_url = "https://www.youtube.com/watch?v=%s" %ids
     print("video link %s" % video_url)   
